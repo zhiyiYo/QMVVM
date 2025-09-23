@@ -13,7 +13,7 @@ setuptools.setup(
     description="A Model-View-ViewModel(MVVM) framework for Qt",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    license="Apache v2.0",
+    license="Apache-2.0",
     url="https://github.com/zhiyiYo/QMVVM",
     packages=setuptools.find_packages(),
     install_requires=[
@@ -21,7 +21,7 @@ setuptools.setup(
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: Apache v2.0',
+        'License :: OSI Approved :: Apache-2.0',
         'Operating System :: OS Independent'
     ],
     project_urls={
