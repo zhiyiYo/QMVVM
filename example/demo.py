@@ -11,7 +11,7 @@ class Demo(QWidget, QMVVM):
 
     def __init__(self):
         super().__init__()
-        # 创建组件
+        # create components
         self.vBoxLayout = QVBoxLayout(self)
         self.label = QLabel()
         self.lineEdit = QLineEdit()
@@ -19,17 +19,17 @@ class Demo(QWidget, QMVVM):
         self.button = QPushButton()
         self.checkBox = QCheckBox()
 
-        # 绑定基本数据类型
-        self.labelText = self.bind("标签文本", self.label)
-        self.lineEditText = self.bind("输入框文本", self.lineEdit)
-        self.buttonText = self.bind("点击按钮", self.button)
+        # bind basic type
+        self.labelText = self.bind("Label", self.label)
+        self.lineEditText = self.bind("Line Edit", self.lineEdit)
+        self.buttonText = self.bind("Click button", self.button)
         self.checked = self.bind(True, self.checkBox, "checked")
         self.spinValue = self.bind(1, self.spinBox, "value")
 
-        # 绑定计算属性
-        self.checkBoxText = self.bind(lambda x=self.spinValue: f"复选框文本 {x}", self.checkBox)
+        # computed property
+        self.checkBoxText = self.bind(lambda x=self.spinValue: f"Check Box {x}", self.checkBox)
 
-        # 初始化布局
+        # initialize layout
         self.vBoxLayout.addWidget(self.label)
         self.vBoxLayout.addWidget(self.lineEdit)
         self.vBoxLayout.addWidget(self.spinBox)
@@ -39,11 +39,12 @@ class Demo(QWidget, QMVVM):
         self.button.clicked.connect(self.onButtonClicked)
 
     def onButtonClicked(self):
-        self.buttonText.value = f"按钮点击 {self.spinValue} 次"
-        self.spinValue.value += 1
-        self.labelText.value = f"标签文本 {self.spinValue}"
-        self.checked.value = not self.checked.value
-        self.lineEditText.value = f"输入框文本 {self.spinValue}"
+        # directly manipulate data rather than components
+        self.buttonText.value = f"Click button {self.spinValue} times"
+        self.spinValue += 1
+        self.labelText.value = f"Label {self.spinValue}"
+        self.checked.value = not self.checked
+        self.lineEditText.value = f"Line Edit {self.spinValue}"
 
 
 if __name__ == '__main__':

@@ -6,8 +6,9 @@ from qtpy.QtCore import QObject
 from qtpy.QtWidgets import QWidget
 
 from .ref import Ref
+from .proxy import Proxy
 
-class Computed(QObject):
+class Computed(Proxy):
 
     def __init__(self, widget: QWidget, property: str, func: callable):
         super().__init__()
