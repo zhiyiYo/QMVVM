@@ -22,7 +22,7 @@
 ## 安装
 使用 pip 命令安装:
 ```shell
-pip install qmvvm -i https://pypi.org/simple/
+pip install qmvvm
 ```
 
 ## 运行示例

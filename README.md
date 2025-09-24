@@ -22,7 +22,7 @@ English | <a href="docs/README_zh.md">简体中文</a>
 ## Install
 To install using pip:
 ```shell
-pip install qmvvm -i https://pypi.org/simple/
+pip install qmvvm
 ```
 
 ## Run Example
