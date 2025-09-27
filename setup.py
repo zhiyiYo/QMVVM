@@ -6,7 +6,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setuptools.setup(
     name="QMVVM",
-    version="0.0.3",
+    version="0.0.4",
     keywords="qt pyqt pyside mvvm",
     author="zhiyiYo",
     author_email="shokokawaii@outlook.com",

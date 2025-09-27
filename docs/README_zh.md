@@ -29,7 +29,7 @@ pip install qmvvm
 安装 QMVVM 之后，可以运行 example 目录下的所有示例:
 ```shell
 cd example
-python demo.py
+python form.py
 ```
 
 ## 许可证

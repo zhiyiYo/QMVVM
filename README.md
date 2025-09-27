@@ -29,7 +29,7 @@ pip install qmvvm
 After installing QMVVM package using pip, you can run any demo in the example directory:
 ```shell
 cd example
-python demo.py
+python form.py
 ```
 
 ## License

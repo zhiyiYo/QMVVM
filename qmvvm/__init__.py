@@ -12,7 +12,7 @@ Examples are available at https://github.com/zhiyiYo/QMVVM/tree/master/examples.
 :license: Apache v2.0, see LICENSE for more details.
 """
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __author__ = "zhiyiYo"
 
 from .mvvm import QMVVM

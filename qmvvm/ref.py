@@ -46,7 +46,6 @@ class Ref(Proxy):
         metaProperty = metaObject.property(index)
 
         if not metaProperty.hasNotifySignal():
-            warnings.warn(f"'{property}' doesn't have NOTIFY signal")
             return
 
         notifySignal = metaProperty.notifySignal()
