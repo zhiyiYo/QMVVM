@@ -1,7 +1,8 @@
 # coding:utf-8
 import weakref
+import warnings
 
-from qtpy.QtCore import QObject, Signal
+from qtpy.QtCore import QObject, Signal, QMetaProperty
 from qtpy.QtWidgets import QWidget
 
 from .proxy import Proxy
@@ -13,6 +14,7 @@ class Ref(Proxy):
         super().__init__()
         self.watchedProperty = property
         self.widgetRef = weakref.ref(widget)
+        self._connectSignal(widget)
 
     @property
     def widget(self):
@@ -33,78 +35,20 @@ class Ref(Proxy):
         self.widget.setProperty(self.watchedProperty, value)
         self.valueChanged.emit()
 
-    def __repr__(self):
-        return str(self.value)
+    def _connectSignal(self, widget):
+        metaObject = widget.metaObject()
+        property = self.watchedProperty
+        index = metaObject.indexOfProperty(property)
 
-    def __eq__(self, other):
-        return self.value == other
+        if index == -1:
+            return
 
-    def __ne__(self, other):
-        return self.value != other
+        metaProperty = metaObject.property(index)
 
-    def __add__(self, other):
-        return self.value + other
+        if not metaProperty.hasNotifySignal():
+            warnings.warn(f"'{property}' doesn't have NOTIFY signal")
+            return
 
-    def __radd__(self, other):
-        return self + other
-
-    def __iadd__(self, other):
-        self.value += other
-        return self
-
-    def __sub__(self, other):
-        return self.value - other
-
-    def __isub__(self, other):
-        self.value -= other
-        return self
-
-    def __rsub__(self, other):
-        return other - self.value
-
-    def __mul__(self, other):
-        return self.value * other
-
-    def __truediv__(self, other):
-        return self.value / other
-
-    def __rtruediv__(self, other):
-        return other / self.value
-
-    def __itruediv__(self, other):
-        self.value /= other
-        return self
-
-    def __floordiv__(self, other):
-        return self.value // other
-
-    def __rfloordiv__(self, other):
-        return other // self.value
-
-    def __ifloordiv__(self, other):
-        self.value //= other
-        return self
-
-    def __gt__(self, other):
-        return self.value > other
-
-    def __lt__(self, other):
-        return self.value < other
-
-    def __ge__(self, other):
-        return self.value >= other
-
-    def __le__(self, other):
-        return self.value <= other
-
-    def __bool__(self):
-        return bool(self.value)
-
-    def __neg__(self):
-        return -self.value
-
-    def __abs__(self):
-        return abs(self.value)
-
-    def __pos__(self):
-        return self.value
+        notifySignal = metaProperty.notifySignal()
+        signal = getattr(widget, notifySignal.name().data().decode('utf-8'))
+        signal.connect(lambda: self.valueChanged.emit())
